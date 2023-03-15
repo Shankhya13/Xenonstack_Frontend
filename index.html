@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mobile Selling Platform</title>
+    <link href="style.css" rel="stylesheet" />
+    <style>
+      /* CSS code goes here */
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mobile Selling Platform</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+      <div id="user-info">
+        <a href="login.html"> <button id="login-button">Log In</button></a>
+        <a href="signup.html"><button id="signup-button">Sign In</button></a>
+        <a href="login.html">
+          <button
+            id="logout-button"
+            onclick="signout(function redirect(){window.location.href='login.html'})"
+          >
+            Log Out
+          </button>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>Featured Products</h2>
+        <div class="product">
+          <img src="apple.png" alt="Product 1" />
+          <h3>Apple Phones</h3>
+          <p>Buy the all new Apple Products here.</p>
+          <button class="add-to-cart" data-product-id="1">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="samsung.jpg" alt="Product 2" />
+          <h3>Samsung Phones</h3>
+          <p>Buy the all new Samsung Products here.</p>
+          <button class="add-to-cart" data-product-id="2">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="oneplus.jpg" alt="Product 3" />
+          <h3>OnePlus Phones</h3>
+          <p>Buy the all new OnePlus Products here.</p>
+          <button class="add-to-cart" data-product-id="3">Add to Cart</button>
+        </div>
+      </section>
+      <section>
+        <h2>Shop By Brand</h2>
+        <ul>
+          <li><a href="#">Xiaomi</a></li>
+          <li><a href="#">Oppo</a></li>
+          <li><a href="#">Motorola</a></li>
+          <li><a href="#">Others</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 Mobile Selling Platform. All rights reserved.</p>
+    </footer>
+
+    <script defer type="text/javaScript" src="./script/action.js"></script>
+    <script>
+      // Get the login and logout buttons
+      const loginButton = document.getElementById("login-button");
+      const signupButton = document.getElementById("signup-button");
+      const logoutButton = document.getElementById("logout-button");
+
+      // logoutButton.addEventListener("click", () => {
+      // 	// TODO: Implement the logout functionality
+      // 	window.location.href = "/login.html";
+      // 	// alert("You have logged out!");
+      // 	// logoutButton.style.display = "none";
+      // 	// loginButton.style.display = "inline";
+      // });
+
+      loginButton.addEventListener("load", isAuthenticate());
+      logoutButton.addEventListener("load", isAuthenticate());
+
+      function isAuth() {
+        if (typeof window != "undefined") {
+          const tokenChecked = window.localStorage.getItem("token");
+          console.log("token");
+          if (tokenChecked) {
+            if (localStorage.getItem("user")) {
+              return JSON.parse(localStorage.getItem("user"));
+            } else {
+              return false;
+            }
+          }
+        }
+      }
+
+      function isAuthenticate() {
+        //console.log("Auth");
+        if (isAuth()) {
+          signupButton.style.display = "none";
+          loginButton.style.display = "none";
+          logoutButton.style.display = "inline";
+        } else {
+          signupButton.style.display = "inline";
+          loginButton.style.display = "inline";
+          logoutButton.style.display = "none";
+        }
+      }
+    </script>
+
+    <script>
+      // Get all the "Add to Cart" buttons
+      const addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+      // Loop through the "Add to Cart" buttons and add a click event listener to each one
+      addToCartButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Get the product ID from the data-product-id attribute
+          const productId = button.getAttribute("data-product-id");
+
+          // TODO: Add the product with the specified ID to the cart
+
+          alert(`Product ${productId} has been added to the cart!`);
+        });
+      });
+    </script>
+  </body>
+</html>

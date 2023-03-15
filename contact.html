@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Us</title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label > span {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+        margin-bottom: 20px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+
+      .error-message {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+      }
+
+      header h1 {
+        margin: 0;
+      }
+
+      nav {
+        display: inline-block;
+        margin: 10px 0;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav li {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      nav li:last-child {
+        margin-right: 0;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label > span {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 100px;
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+
+      .error-message {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .success-message {
+        color: green;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        background-color: #ccc;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+      }
+
+      footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Us</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Shop</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h2>Get in touch with us</h2>
+        <form id="contact-form">
+          <label>
+            <span>Name:</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span>Email:</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span>Message:</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <input type="submit" value="Send Message" />
+        </form>
+        <div id="error-message" class="error-message" style="display: none">
+          Please fill out all fields!
+        </div>
+        <div id="success-message" style="display: none">
+          Thank you for contacting us! We'll get back to you as soon as
+          possible.
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2023 Mobile Selling Platform. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const contactForm = document.getElementById("contact-form");
+      const errorMessage = document.getElementById("error-message");
+      const successMessage = document.getElementById("success-message");
+
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const nameInput = contactForm.querySelector('input[name="name"]');
+        const emailInput = contactForm.querySelector('input[name="email"]');
+        const messageInput = contactForm.querySelector(
+          'textarea[name="message"]'
+        );
+
+        if (
+          nameInput.value === "" ||
+          emailInput.value === "" ||
+          messageInput.value === ""
+        ) {
+          errorMessage.style.display = "block";
+          return;
+        }
+
+        // TODO: Send the form data to the server using AJAX or fetch()
+
+        successMessage.style.display = "block";
+        contactForm.reset();
+      });
+    </script>
+  </body>
+</html>

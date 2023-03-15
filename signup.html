@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shop</title>
+		<link rel="stylesheet" href="./css/login.css" />
+	</head>
+	<body>
+		<header>
+			<h1>Mobile Selling Platform</h1>
+			<nav>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
+				</ul>
+			</nav>
+			<div id="user-info">
+				<a href="login.html"> <button id="login-button">Log In</button></a>
+				<a href="signup.html"><button id="signup-button">Sign In</button></a>
+				<a href="login.html">
+					<button
+						id="logout-button"
+						onclick="signout(function redirect(){window.location.href='login.html'})"
+					>
+						Log Out
+					</button>
+				</a>
+			</div>
+		</header>
+		<main>
+			<section>
+				<h2>Please Login to continue the Purchase of Product</h2>
+				<div>
+					<div id="error-message" style="display: none">
+						User with email doesnot exist. SignUp again
+					</div>
+					<div id="success-message" style="display: none">
+						Thank you for contacting us! We'll get back to you as soon as
+						possible.
+					</div>
+				</div>
+				<form id="signup-form" method="post">
+					<label>
+						<span>Username</span>
+						<input type="text" name="username" required />
+					</label>
+					<label>
+						<span>Email</span>
+						<input type="text" name="email" required />
+					</label>
+					<label>
+						<span>PassWord</span>
+						<input type="password" name="password" required />
+					</label>
+					<input type="submit" value="Signup" />
+					<br />
+					<small>
+						Don't have an account ? <a href="login.html">Login</a>
+					</small>
+				</form>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2023 Mobile Selling Platform. All rights reserved.</p>
+		</footer>
+
+		<script type="text/javaScript" src="./script/action.js"></script>
+		<script>
+			// Get the login and logout buttons
+			const loginButton = document.getElementById("login-button");
+			const signupButton = document.getElementById("signup-button");
+			const logoutButton = document.getElementById("logout-button");
+
+			// logoutButton.addEventListener("click", () => {
+			// 	// TODO: Implement the logout functionality
+			// 	window.location.href = "/login.html";
+			// 	// alert("You have logged out!");
+			// 	// logoutButton.style.display = "none";
+			// 	// loginButton.style.display = "inline";
+			// });
+
+			loginButton.addEventListener("load", isAuthenticate());
+			logoutButton.addEventListener("load", isAuthenticate());
+
+			function isAuth() {
+				if (typeof window != "undefined") {
+					const tokenChecked = window.localStorage.getItem("token");
+					console.log("token");
+					if (tokenChecked) {
+						if (localStorage.getItem("user")) {
+							return JSON.parse(localStorage.getItem("user"));
+						} else {
+							return false;
+						}
+					}
+				}
+			}
+
+			function isAuthenticate() {
+				console.log("Auth");
+				if (isAuth()) {
+					signupButton.style.display = "none";
+					loginButton.style.display = "none";
+					logoutButton.style.display = "inline";
+                    window.location.href='index.html'
+				} else {
+					signupButton.style.display = "inline";
+					loginButton.style.display = "inline";
+					logoutButton.style.display = "none";
+				}
+			}
+
+			const signupForm = document.getElementById("signup-form");
+			const errorMessage = document.getElementById("error-message");
+			const successMessage = document.getElementById("success-message");
+
+			signupForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+
+				const nameInput = signupForm.querySelector(
+					'input[name="username"]',
+				).value;
+				const emailInput = signupForm.querySelector(
+					'input[name="email"]',
+				).value;
+				const passwordInput = signupForm.querySelector(
+					'input[name="password"]',
+				).value;
+
+				if (
+					nameInput.value === "" ||
+					emailInput.value === "" ||
+					passwordInput.value === ""
+				) {
+					errorMessage.style.display = "block";
+					return;
+				}
+
+				// TODO: Send the form data to the server using AJAX or fetch()
+
+				// const responseData = await signupSignin("signup", {
+				// 	username: nameInput,
+				// 	useremail: emailInput,
+				// 	password: passwordInput,
+				// });
+
+				const responseData = await fetch(`${API_URL}/signup`, {
+					method: "POST",
+					headers: {
+						Accept: "application.json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						username: nameInput,
+						useremail: emailInput,
+						password: passwordInput,
+					}),
+				}).then((response) => {
+					return response.json();
+				});
+
+				console.log(responseData);
+				if (responseData.error) {
+					errorMessage.style.display = "block";
+				} else {
+					successMessage.style.display = "block";
+					window.location.href = "login.html";
+				}
+				signupForm.reset();
+			});
+		</script>
+	</body>
+</html>
